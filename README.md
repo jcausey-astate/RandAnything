@@ -19,18 +19,18 @@ Second, you just call the generator object as if it were a function, passing the
 ```cpp
 int d6 = die_roller(1, 6);   // Simulate rolling a 6-sided die.
 ```
-That's it!  The 1 represents the _low_ end of the range of possible values, and the 6 represents the _high_ end of the range.  A uniform random number in the range $[1,6]$ will be returned.
+That's it!  The 1 represents the _low_ end of the range of possible values, and the 6 represents the _high_ end of the range.  A uniform random number in the range [1,6] will be returned.
 
 `RandAnything` will allow you to generate any kind of numeric value you want by following those two steps.
 
-**Range Note:** The range of values generated for integer-based values is a _closed range_ $[low, high]$, but floating-point-based values are produced in an _open range_ $[low, high)$ (the $high$ value is never actually produced, but values can get vanishingly close, according to the precision available in the type itself).
+**Range Note:** The range of values generated for integer-based values is a _closed range_ [low, high], but floating-point-based values are produced in an _open range_ [low, high) (the high value is never actually produced, but values can get vanishingly close, according to the precision available in the type itself).
 
 ## Generating `std::string` Values
 `RandAnything` can also generate randomized strings of type `std::string`!  The process is nearly the same, but there are a few more options.
 
 For one thing, you can choose the _alphabet_ (set of characters) from which the string is chosen.  By default it will consist of all _non-whitespace, printable_ characters (that is, characters that aren't whitespace and will result in a visible character on the screen).  But you can customize the alphabet easily (more on that later).
 
-Also, you can choose to _either_ generate strings with a _variable length_ (whose length is in a range specified by $[low, high]$ similar to the numeric ranges shown above), or you can generate strings with a fixed length.
+Also, you can choose to _either_ generate strings with a _variable length_ (whose length is in a range specified by [low, high] similar to the numeric ranges shown above), or you can generate strings with a fixed length.
 
 Example Code:
 ```cpp
