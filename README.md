@@ -82,6 +82,12 @@ std::string lc   = string_gen(4, 16, string_gen.alphabet_alphaLowerCase());
 
 When you declare the instance of the `RandAnything` object, it will perform an initial setup operation involving obtaining a source of randomness using a source of _true random entropy_ if such a source is available.  (The mechanism used is the `std::random_device`: see http://en.cppreference.com/w/cpp/numeric/random/random_device).  If a source of nondeterministic entropy is not available, then you end up with a deterministic seeding function.
 
+If you wish, you can supply an explicit seed value when you construct the `RandAnything` object.  If you use an explicit seed, the generator will **always** generate the same sequence of random numbers!  Normally you do not want to do this, but this behavior might be useful in certain testing situations to allow you to "replay" a specific set of outputs.  Here is an example of how you can specify a seed:
+```cpp
+// Create an integer value generator with an explicit seed of 33:
+RandAnything test_gen{33};
+```
+
 **Generation**
 
 Random number generation depends on a Mersenne Twister algorithm (specifically `std::mt19937`: see http://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine).  This produces _pseudo-random_ values based on a (in most cases) true-random seed.  The result is that the part of the process that takes significant time (the true-random seeding) occurs only at instantiation, and on every call a comparatively _fast_ pseudo-random generation occurs.
