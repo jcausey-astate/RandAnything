@@ -5,7 +5,11 @@
  */
 #include <iostream>
 #include <iomanip>
+#include <vector>
 #include "../RandAnything.h"
+
+class Foo {};
+
     
 int main() {
     RandAnything<unsigned> ra1;
@@ -48,6 +52,49 @@ int main() {
         std::cout << std::setw(6) 
                   << strand(5,strand.alphabet_alphaAllCase()) << ((i+1)%10 == 0 ? "\n" : "");
     }
+    std::cout << "\n\n";
+    std::cout << "String (length 4, simulated binary): \n";
+    for(int i = 0; i < 60; ++i){
+        std::cout << std::setw(6) 
+                  << strand(4,"01") << ((i+1)%10 == 0 ? "\n" : "");
+    }
     std::cout << "\n\n";    
+
+    // Un-comment the following line to test type compatibility check (the code
+    // should not compile with the line un-commented):
+    // RandAnything<Foo> foorand;  // type compatibility check (should not compile if active)
+    
+    // Tests fixed seeds:
+    std::cout << "Fixed seed verification:\n";
+    RandAnything<int>    fixed1 {33};
+    RandAnything<double> dfixed1{33};
+    std::vector<int>     v;
+    std::vector<double>  dv;
+    for(int i = 0; i < 10; ++i){
+        v.push_back(fixed1(1, 1000));
+        dv.push_back(dfixed1(0, 100));
+     }
+    RandAnything<int>    fixed2 {33};
+    RandAnything<double> dfixed2{33};
+    for(int i = 0; i < 10; ++i){
+        auto item    = v [i];
+        auto ditem   = dv[i];
+        auto verify  = fixed2 (1, 1000);
+        auto dverify = dfixed2(0, 100 );
+        if(item != verify || ditem != dverify){
+            std::cout << "FAILED fixed seed test. " << item    << " != " << verify 
+                      << " or " << ditem << " != "  << dverify << std::endl;
+            i = 10;
+        }
+        else{
+            std::cout << item  << " == " << verify  << " -- "
+                      << std::setprecision(3) << std::fixed << std::right
+                      << std::setw(6) << ditem << " == " << std::setw(6) << dverify << "\n";
+        }
+    }
+    
+    std::cout << "\n\n";
+    
+    std::cout << "Done.\n";    
     return 0;
 }
