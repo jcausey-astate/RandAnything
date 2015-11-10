@@ -87,8 +87,8 @@ int main() {
             i = 10;
         }
         else{
-            std::cout << item  << " == " << verify  << " -- "
-                      << std::setprecision(3) << std::fixed << std::right
+            std::cout << std::setprecision(3) << std::fixed << std::right
+                      << std::setw(4) << item  << " == " << std::setw(4) << verify  << " -- "
                       << std::setw(6) << ditem << " == " << std::setw(6) << dverify << "\n";
         }
     }
